@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>BO-Kello</title>
+    <script src="bokello.js"></script>
+    <meta charset="UTF-8">
+  </head>
+  <body onload="init()">
+    <button onclick="start()">Start execution</button>
+    <button onclick="stop()">Stop execution</button>
+    <button onclick="addRow(0, 0, 'Build more pylons!')">Add row</button>
+
+    <button onclick="saveData()">Save to local storage</button>
+
+    <br>
+    <span>Saved builds:</span>
+    <br>
+
+    <div id="saveArea">
+    </div>
+
+
+    <br>
+    <span id="nimi" contenteditable="true">Paras buildi v zerggi</span>
+    <br>
+    <span id="aika">0:00</span>
+    <table id="taulu">
+      <tr>
+        <th>Min</th>
+        <th>Sec</th>
+        <th>Text</th>
+      </tr>
+      <tr>
+        <td contenteditable="true">0</td>
+        <td contenteditable="true">0</td>
+        <td contenteditable="true">Moi fuzer</td>
+      </tr>
+    </table>
+</body>
+</html>
