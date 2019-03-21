@@ -101,7 +101,10 @@ function loadData(key) {
 function start() {
   stop()
   for (var i = 1; i < taulu.rows.length; i++) {
-    var secs = parseInt(taulu.rows[i].cells[0].textContent) * 60 + parseInt(taulu.rows[i].cells[1].textContent);
+    var secs = parseInt(taulu.rows[i].cells[1].textContent);
+    var mins = parseInt(taulu.rows[i].cells[0].textContent) * 60;
+    if (isNaN(secs)) secs = 0;
+    if (isNaN(mins)) mins = 0;
     var tid = window.setTimeout(say, secs*1000, taulu.rows[i].cells[2].textContent);
     timerIDs.push(tid);
   }
