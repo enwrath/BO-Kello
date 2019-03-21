@@ -1,28 +1,31 @@
 <html>
   <head>
     <title>BO-Kello</title>
+    <link rel="stylesheet" type="text/css" href="bokello.css">
     <script src="bokello.js"></script>
     <meta charset="UTF-8">
   </head>
   <body onload="init()">
     <button onclick="start()">Start execution</button>
     <button onclick="stop()">Stop execution</button>
-    <button onclick="addRow(0, 0, 'Build more pylons!')">Add row</button>
 
-    <button onclick="saveData()">Save to local storage</button>
     <br>
     <h3 id="aika">0:00</h3>
-    <br>
     <span>Saved builds:</span>
     <br>
-
+    <hr>
     <div id="saveArea">
     </div>
-
+    <hr>
 
     <br>
+
+    <button onclick="addRow(0, 0, 'Build more pylons!')">Add row</button>
+    <button onclick="saveData()">Save to local storage</button>
     <button onclick="deleteBuild()">Delete build</button>
-    <h3 id="nimi" contenteditable="true">Paras buildi v zerggi</h3>
+    <br><br>
+    <span>Build name: </span><span id="nimi" contenteditable="true">Paras buildi v zerggi</span>
+    <br>
     <br>
     <table id="taulu">
       <tr>
@@ -32,9 +35,14 @@
       </tr>
       <tr>
         <td contenteditable="true">0</td>
-        <td contenteditable="true">0</td>
-        <td contenteditable="true">Moi fuzer</td>
+        <td contenteditable="true">5</td>
+        <td contenteditable="true">Create more Moonwells.</td>
       </tr>
     </table>
+
+    <hr>
+    <p>Builds are identified by their name. Saving build "xyz" will overwrite any possible build with the same name.</p>
+    <p>Having multiple lines at the same timestamp will result in those lines being read one by one; text-to-speech audio doesn't like overlapping itself.</p>
+    <p>Made by Enwrath</p>
 </body>
 </html>
