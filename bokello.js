@@ -35,6 +35,14 @@ function addRow(s, m, t) {
   c3.contentEditable = true;
 }
 
+function deleteBuild() {
+  var key = nimi.textContent;
+  localStorage.removeItem(key);
+
+  var btn = document.getElementById(key);
+  if (btn != null) btn.parentNode.removeChild(btn);
+}
+
 function saveData() {
   var d = [];
   var id = nimi.textContent;
