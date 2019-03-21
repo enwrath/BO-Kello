@@ -7,9 +7,10 @@ function init() {
   aika = document.getElementById('aika');
   nimi = document.getElementById('nimi');
   saveArea = document.getElementById('saveArea');
-  for (key in Object.keys(localStorage)) {
+  for (k in Object.keys(localStorage)) {
+    var key = localStorage.key(k);
     var data = JSON.parse(localStorage.getItem(key));
-
+    console.log(key);
     var button = document.createElement("button");
     button.id = key;
     button.textContent = key;
