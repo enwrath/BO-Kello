@@ -21,15 +21,28 @@ function init() {
   }
 }
 
+function deleteRow(btn) {
+  var row = btn.parentNode.parentNode;
+  row.parentNode.removeChild(row);
+}
+
 function addRow(s, m, t) {
   var newRow = taulu.insertRow(-1);
   var c1 = newRow.insertCell(0);
   var c2 = newRow.insertCell(1);
   var c3 = newRow.insertCell(2);
+  var c4 = newRow.insertCell(3);
+
+  var delbtn = document.createElement("button");
+  delbtn.textContent = "Remove";
+  delbtn.addEventListener ("click", function() {
+    deleteRow(delbtn);
+  });
 
   c1.appendChild(document.createTextNode(s));
   c2.appendChild(document.createTextNode(m));
   c3.appendChild(document.createTextNode(t));
+  c4.appendChild(delbtn);
   c1.contentEditable = true;
   c2.contentEditable = true;
   c3.contentEditable = true;

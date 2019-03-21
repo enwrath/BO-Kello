@@ -24,7 +24,7 @@
     <button onclick="saveData()">Save to local storage</button>
     <button onclick="deleteBuild()">Delete build</button>
     <br><br>
-    <span>Build name: </span><span id="nimi" contenteditable="true">Paras buildi v zerggi</span>
+    <span>Build name: </span><span id="nimi" contenteditable="true">Example build name</span>
     <br>
     <br>
     <table id="taulu">
@@ -32,11 +32,13 @@
         <th>Min</th>
         <th>Sec</th>
         <th>Text</th>
+        <th></th>
       </tr>
       <tr>
         <td contenteditable="true">0</td>
         <td contenteditable="true">5</td>
         <td contenteditable="true">Create more Moonwells.</td>
+        <td><button onclick="deleteRow(this)">Remove</button></td>
       </tr>
     </table>
 
