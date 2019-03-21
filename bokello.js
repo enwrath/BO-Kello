@@ -7,14 +7,12 @@ function init() {
   aika = document.getElementById('aika');
   nimi = document.getElementById('nimi');
   saveArea = document.getElementById('saveArea');
+  for (key in Object.keys(localStorage)) {
+    var data = JSON.parse(localStorage.getItem(key));
 
-  for (var i = 0; i < localStorage.length; i++) {
-    var data = JSON.parse(localStorage.getItem(i));
-    var name = data.shift();
-    var bid = data.shift();
     var button = document.createElement("button");
-    button.id = bid;
-    button.textContent = name;
+    button.id = key;
+    button.textContent = key;
     button.addEventListener ("click", function() {
       loadData(this.id);
     });
@@ -37,7 +35,8 @@ function addRow(s, m, t) {
 }
 
 function saveData() {
-  var d = [nimi.textContent, localStorage.length];
+  var d = [];
+  var id = nimi.textContent;
   for (var i = 1; i < taulu.rows.length; i++) {
     var secs = taulu.rows[i].cells[0].textContent;
     var mins = taulu.rows[i].cells[1].textContent;
@@ -46,23 +45,26 @@ function saveData() {
   }
   var data = JSON.stringify(d);
   console.log(data);
-  localStorage.setItem(localStorage.length, data);
+  var resave = false;
+  if (localStorage.getItem(id) != null) resave = true;
+  localStorage.setItem(id, data);
 
-  var button = document.createElement("button");
-  button.id = d[1];
-  button.textContent = d[0];
-  button.addEventListener ("click", function() {
-    loadData(this.id);
-  });
-  saveArea.appendChild(button);
+  if (!resave) {
+    var button = document.createElement("button");
+    button.id = id;
+    button.textContent = id;
+    button.addEventListener ("click", function() {
+      loadData(this.id);
+    });
+    saveArea.appendChild(button);
+  }
 }
 
-function loadData(sid) {
-  var d = localStorage.getItem(sid);
-  console.log(d);
+function loadData(key) {
+  var d = localStorage.getItem(key);
+  console.log(key);
   var data = JSON.parse(d);
-  nimi.textContent = data.shift();
-  data.shift(); //ID not needed
+  nimi.textContent = key;
   while (taulu.rows.length > 1) {
     taulu.deleteRow(1);
   }
