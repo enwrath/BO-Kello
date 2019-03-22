@@ -1,12 +1,14 @@
-var taulu, aika, nimi, saveArea;
+var taulu, aika, nimi, saveArea, importSpan;
 var timerIDs = [];
 var secsGone = 0;
+
 
 function init() {
   taulu = document.getElementById('taulu');
   aika = document.getElementById('aika');
   nimi = document.getElementById('nimi');
   saveArea = document.getElementById('saveArea');
+  importSpan = document.getElementById('importSpan');
   for (k in Object.keys(localStorage)) {
     var key = localStorage.key(k);
     var data = JSON.parse(localStorage.getItem(key));
@@ -18,6 +20,21 @@ function init() {
       loadData(this.id);
     });
     saveArea.appendChild(button);
+  }
+}
+
+//Copypasted from load, merge these at some point
+function importBuild() {
+  var d = importSpan.textContent;
+  var data = JSON.parse(d);
+  while (taulu.rows.length > 1) {
+    taulu.deleteRow(1);
+  }
+  while (data.length > 0) {
+    var secs = data.shift();
+    var mins = data.shift();
+    var text = data.shift();
+    addRow(secs, mins, text);
   }
 }
 
