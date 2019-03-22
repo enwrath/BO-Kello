@@ -105,7 +105,7 @@ function start() {
     var mins = parseInt(taulu.rows[i].cells[0].textContent) * 60;
     if (isNaN(secs)) secs = 0;
     if (isNaN(mins)) mins = 0;
-    var tid = window.setTimeout(say, secs*1000, taulu.rows[i].cells[2].textContent);
+    var tid = window.setTimeout(say, (mins+secs)*1000, taulu.rows[i].cells[2].textContent);
     timerIDs.push(tid);
   }
   var tid = window.setInterval(updateTime, 1000);
