@@ -1,7 +1,8 @@
 var taulu, aika, nimi, saveArea, importSpan;
 var timerIDs = [];
 var secsGone = 0;
-
+var timerStarted = -1;
+var timerElapsed = -1;
 
 function init() {
   taulu = document.getElementById('taulu');
@@ -115,16 +116,33 @@ function loadData(key) {
   }
 }
 
+function pause() {
+  if (timerStarted == -1) return;
+  while (timerIDs.length > 0) {
+    var tid = timerIDs.pop();
+    clearTimeout(tid);
+  }
+  timerElapsed = new Date - timerStarted;
+}
+
 function start() {
-  stop()
+  var timeElapsed = timerStarted == -1 ? 0 : timerElapsed;
+  console.log(timeElapsed);
+  if (timeElapsed == 0) stop();
   for (var i = 1; i < taulu.rows.length; i++) {
     var secs = parseInt(taulu.rows[i].cells[1].textContent);
     var mins = parseInt(taulu.rows[i].cells[0].textContent) * 60;
     if (isNaN(secs)) secs = 0;
     if (isNaN(mins)) mins = 0;
-    var tid = window.setTimeout(say, (mins+secs)*1000, taulu.rows[i].cells[2].textContent);
-    timerIDs.push(tid);
+    var timeLeft = (secs + mins) * 1000 - timeElapsed;
+    console.log(timeLeft);
+    if (timeLeft > 0) {
+      var tid = window.setTimeout(say, timeLeft, taulu.rows[i].cells[2].textContent);
+      timerIDs.push(tid);
+    }
   }
+  timerStarted = new Date() - timeElapsed;
+  timerElapsed = -1;
   var tid = window.setInterval(updateTime, 1000);
   timerIDs.push(tid);
 }
@@ -139,6 +157,7 @@ function stop() {
     var tid = timerIDs.pop();
     clearTimeout(tid);
   }
+  timerStarted = -1;
   secsGone = -1;
   updateTime();
 }
