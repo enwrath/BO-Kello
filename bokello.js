@@ -1,6 +1,6 @@
 var taulu, aika, nimi, saveArea, importSpan;
 var timerIDs = [];
-var secsGone = 0;
+var msGone = 0;
 var timerStarted = -1;
 var timerElapsed = -1;
 
@@ -127,7 +127,6 @@ function pause() {
 
 function start() {
   var timeElapsed = timerStarted == -1 ? 0 : timerElapsed;
-  console.log(timeElapsed);
   if (timeElapsed == 0) stop();
   for (var i = 1; i < taulu.rows.length; i++) {
     var secs = parseInt(taulu.rows[i].cells[1].textContent);
@@ -135,7 +134,6 @@ function start() {
     if (isNaN(secs)) secs = 0;
     if (isNaN(mins)) mins = 0;
     var timeLeft = (secs + mins) * 1000 - timeElapsed;
-    console.log(timeLeft);
     if (timeLeft > 0) {
       var tid = window.setTimeout(say, timeLeft, taulu.rows[i].cells[2].textContent);
       timerIDs.push(tid);
@@ -143,12 +141,14 @@ function start() {
   }
   timerStarted = new Date() - timeElapsed;
   timerElapsed = -1;
-  var tid = window.setInterval(updateTime, 1000);
+  if (timeElapsed == 0) msGone = 0;
+  var tid = window.setInterval(updateTime, 100);
   timerIDs.push(tid);
 }
 
 function updateTime() {
-  secsGone += 1;
+  msGone += 100;
+  var secsGone = Math.floor(msGone / 1000);
   aika.textContent = Math.floor(secsGone / 60) + ":" + (secsGone % 60).toString().padStart(2, '0');
 }
 
@@ -158,7 +158,7 @@ function stop() {
     clearTimeout(tid);
   }
   timerStarted = -1;
-  secsGone = -1;
+  msGone = -1;
   updateTime();
 }
 
