@@ -2,6 +2,15 @@
   font-weight: bold;
 }
 
+.bigbutton {
+  font-size: 2em;
+}
+
+.widebutton {
+  padding: 0 14em;
+  margin: 0.5em;
+}
+
 table {
   border-collapse: collapse;
 }
